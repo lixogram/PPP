@@ -10,7 +10,7 @@ pipeline {
         stage('Build docker image'){
             steps{
                 script{
-                    sh 'docker build -t lixogram/myprojectnew:v1 .'
+                    sh 'docker build -t lixogram/PPP:v1 .'
                     sh 'docker images'
                 }
             }
@@ -19,7 +19,7 @@ pipeline {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'dockerhub-pwd', passwordVariable: 'PASS', usernameVariable: 'USER')]) {
                     sh "echo $PASS | docker login -u $USER --password-stdin"
-                    sh 'docker push lixogram/myprojectnew:v1'
+                    sh 'docker push lixogram/PPP:v1'
                 }
             }
         }
@@ -27,7 +27,7 @@ pipeline {
      stage('Deploy') {
             steps {
                 script{
-                    sh 'sudo docker run -itd --name My-project-con -p 8089:80 lixogram/myprojectnew:v1'
+                    sh 'sudo docker run -itd --name PPP -p 8089:80 lixogram/PPP:v1'
                        }
                     }
                 }
